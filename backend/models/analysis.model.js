@@ -1,24 +1,25 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const analysisSchema=new mongoose.Schema({
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true,
+const analysisSchema = new mongoose.Schema(
+    {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        resumeText: String,
+        jdText: String,
+        inputHash: {
+            type: String,
+            unique: true,
+            required: true,
+        },
+        score: Number,
+        strengthd: [String],
+        improvements: [String],
     },
-    resumeText: String,
-    jdText:String,
-    inputHash:{
-        type:String,
-        unique:true,
-        required:true
-    },
-    score:Number,
-    strengthd:[String],
-    improvements:[String]
-},
-{timestamps:true}
+    { timestamps: true }
 )
 
-const Analysis=mongoose.model("Analysis",analysisSchema)
+const Analysis = mongoose.model('Analysis', analysisSchema)
 export default Analysis

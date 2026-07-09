@@ -1,6 +1,9 @@
-import 'dotenv';
+import 'dotenv'
 
 const ENV = {
-    MONGO_URL:process.env.MONGO_URL,
+    MONGO_URL: process.env.MONGO_URL,
+    JWT_SECRET: process.env.JWT_SECRET,
+    RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
+    RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
 }
-export default ENV;
+export default ENV
