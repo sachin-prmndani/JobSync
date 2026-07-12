@@ -1,5 +1,5 @@
-import analyzeResumeVsJD from '../utils/geminiAnalysis.js'
-import extractTextFromFile from '../utils/extractText.js'
+import { analyzeResumeVsJD } from '../utils/geminiAnalysis.js'
+import { extractTextFromFile } from '../utils/extractText.js'
 
 export const analyzeResume = async (req, res) => {
     try {

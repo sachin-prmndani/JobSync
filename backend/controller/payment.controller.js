@@ -1,4 +1,3 @@
-import razorpay from 'razorpay'
 import crypto from 'crypto'
 import User from '../models/user.model.js'
 import Payment from '../models/payment.model.js'

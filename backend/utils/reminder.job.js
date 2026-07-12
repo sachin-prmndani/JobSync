@@ -1,6 +1,6 @@
 import cron from "node-cron"
 import Reminder from "../models/reminder.model.js"
-import {sendEmail} from "../utils/email.service.js"
+import {sendEmail} from "../utils/email_service.js"
 
 export const startReminder=()=>{
     cron.schedule("*/5 * * * *",async()=>{

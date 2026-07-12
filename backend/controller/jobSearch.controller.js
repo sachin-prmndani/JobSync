@@ -1,5 +1,5 @@
 import { fetchLinkedInJobs } from '../utils/linkedinJobs.js';
-import { fetchSerpApiJobs } from '../utils/serpApiJobs.js';
+import { fetchSerpApiJobs } from '../utils/serpJobs.js';
 import User from '../models/user.model.js';
 
 export const searchJobs = async (req, res) => {

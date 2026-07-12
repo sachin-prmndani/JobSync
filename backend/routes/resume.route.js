@@ -2,12 +2,12 @@ import express from "express"
 import verifyToken from "../middleware/verifyToken.js"
 import {
     createResume,
-    getResumes,
+    getResumes, 
     getResumeById,
     updateResume,
     deleteResume,
     downloadResumePDF
-} from "../controllers/resume.controller.js"
+} from "../controller/resume.controller.js"
 
 const router = express.Router()
 

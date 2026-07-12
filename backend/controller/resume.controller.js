@@ -15,6 +15,18 @@ export const createResume = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' })
     }
 }
+export const getResumes = async (req, res) => {
+    try {
+        const resumes = await Resume.find({ userId: req.user._id })
+        return res.status(200).json({
+            message: "Resumes fetched successfully",
+            resumes
+        })
+    } catch (error) {
+        
+        return res.status(500).json({ message: "Internal server error" })
+    }
+}
 export const getResumeById = async (req, res) => {
     try {
         const resume = Resume.findOne({

@@ -1,6 +1,6 @@
 import Application from '../models/application.model.js'
 import buildEmailPrompt from '../utils/AIpromt.js'
-import generateFromAi from '../utils/geminiAnalysis.js'
+import generateFromAI from '../utils/geminiMail.js'
 
 export const generateEmail = async (req, res) => {
     try {
