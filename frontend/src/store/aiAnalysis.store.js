@@ -1,5 +1,5 @@
-import { create } from "zustand"
-import axiosInstance from "../utils/axios.js"
+import { create } from 'zustand'
+import axiosInstance from '../utils/axios.js'
 
 export const useAIAnalysisStore = create((set) => ({
     analysis: null,
@@ -14,16 +14,12 @@ export const useAIAnalysisStore = create((set) => ({
             formData.append('resume', resumeFile)
             formData.append('jobDescription', jobDescription)
 
-            const res = await axiosInstance.post("/api/ai-analysis/analyze", formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
+            const res = await axiosInstance.post('/api/ai-analysis/analyze', formData)
 
             set({ analysis: res.data.analysis })
             return res.data.analysis
         } catch (error) {
-            set({ error: error.response?.data?.message || "Failed to analyze resume" })
+            set({ error: error.response?.data?.message || 'Failed to analyze resume' })
             throw error
         } finally {
             set({ loading: false })
@@ -32,5 +28,5 @@ export const useAIAnalysisStore = create((set) => ({
 
     clearAnalysis: () => {
         set({ analysis: null, error: null })
-    }
+    },
 }))
