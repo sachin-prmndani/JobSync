@@ -7,6 +7,16 @@ const router = express.Router()
 
 router.use(verifyToken)
 
-router.post("/analyze", upload.single('resume'), analyzeResume)
+const handleResumeUpload = (req, res, next) => {
+    upload.single('resume')(req, res, (error) => {
+        if (error) {
+            return res.status(400).json({ message: error.message })
+        }
+
+        next()
+    })
+}
+
+router.post("/analyze", handleResumeUpload, analyzeResume)
 
 export default router

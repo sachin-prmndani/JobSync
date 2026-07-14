@@ -12,7 +12,7 @@ export const createApplication = async (req, res) => {
             company,
             role,
             status,
-            appliedDate,
+            appliedDate: appliedDate || undefined,
             notes,
         })
 
@@ -21,13 +21,18 @@ export const createApplication = async (req, res) => {
             application,
         })
     } catch (error) {
+        console.error('Create application error:', error.message)
+        if (error.name === 'ValidationError' || error.name === 'CastError') {
+            return res.status(400).json({ message: error.message })
+        }
+
         return res.status(500).json({ message: 'Internal Server Error' })
     }
 }
 export const getApplication = async (req, res) => {
     try {
-        const application = await Application.find({
-            user: req.user_id,
+        const applications = await Application.find({
+            user: req.user._id,
         }).sort({ createdAt: -1 })
         return res.status(200).json({
             message: 'Applications fetched successfully',
@@ -66,7 +71,12 @@ export const updateApplication = async (req, res) => {
             return res.status(403).json({ message: 'Unauthorized' })
         }
 
-        const updatedApplication = await Application.findByIdAndUpdate(req.params.id, req.body, {
+        const updates = {
+            ...req.body,
+            appliedDate: req.body.appliedDate || undefined,
+        }
+
+        const updatedApplication = await Application.findByIdAndUpdate(req.params.id, updates, {
             new: true,
             runValidators: true,
         })
@@ -76,6 +86,11 @@ export const updateApplication = async (req, res) => {
             updatedApplication,
         })
     } catch (error) {
+        console.error('Update application error:', error.message)
+        if (error.name === 'ValidationError' || error.name === 'CastError') {
+            return res.status(400).json({ message: error.message })
+        }
+
         return res.status(500).json({ message: 'Internal Server Error' })
     }
 }

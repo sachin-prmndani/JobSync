@@ -10,8 +10,7 @@ export const analyzeResume = async (req, res) => {
         if (!jobDescription) {
             return res.status(400).json({ message: 'Job description is required' })
         }
-        const pdfBuffer = req.file.buffer
-        const resumeText = await extractTextFromFile(pdfBuffer)
+        const resumeText = await extractTextFromFile(req.file)
         if (!resumeText.trim()) {
             return res.status(400).json({ message: 'Could not extract text from PDF' })
         }
@@ -22,6 +21,7 @@ export const analyzeResume = async (req, res) => {
             analysis,
         })
     } catch (error) {
+        console.error('Resume analysis error:', error.message)
         return res.status(500).json({ message: error.message || 'Internal server error' })
     }
 }

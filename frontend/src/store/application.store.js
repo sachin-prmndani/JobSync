@@ -19,7 +19,7 @@ export const useApplicationStore = create((set) => ({
         }
         catch (error) {
             set({
-                err: error.response.data.message || "Failed To Create Application",
+                err: error.response?.data?.message || "Failed To Create Application",
             })
         }
         finally {
@@ -35,7 +35,7 @@ export const useApplicationStore = create((set) => ({
         }
         catch (error) {
             set({
-                err: error.response.data.message || "Failed To Fetch Application",
+                err: error.response?.data?.message || "Failed To Fetch Application",
             })
         }
         finally {
@@ -51,7 +51,7 @@ export const useApplicationStore = create((set) => ({
         }
         catch (error) {
             set({
-                err: error.response.data.message || "Failed To Fetch Application",
+                err: error.response?.data?.message || "Failed To Fetch Application",
             })
         }
         finally {
@@ -71,7 +71,7 @@ export const useApplicationStore = create((set) => ({
         }
         catch (error) {
             set({
-                err: error.response.data.message || "Failed To Update Application",
+                err: error.response?.data?.message || "Failed To Update Application",
             })
         }
         finally {
@@ -91,7 +91,7 @@ export const useApplicationStore = create((set) => ({
         }
         catch (error) {
             set({
-                err: error.response.data.message || "Failed To Delete Application",
+                err: error.response?.data?.message || "Failed To Delete Application",
             })
         }
         finally {
