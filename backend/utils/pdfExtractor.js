@@ -1,8 +1,8 @@
-import PDFparser from 'pdf2json'
+import PDFParser from 'pdf2json'
 
-export const extractTextFromPdf = (pdfBuffer) => {
+export const extractTextFromPDF = (pdfBuffer) => {
     return new Promise((resolve, reject) => {
-        const pdfParser = new PDFparser()
+        const pdfParser = new PDFParser()
 
         pdfParser.on('pdfParser_dataError', (errData) => {
             reject(new Error('Failed to parse PDF: ' + errData.parserError))
