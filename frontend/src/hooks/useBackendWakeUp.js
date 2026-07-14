@@ -24,13 +24,13 @@ export const useBackendWakeUp = () => {
                 )
 
                 if (response.ok) {
-                    const data = await response.json()
                     setIsBackendReady(true)
                     setIsChecking(false)
                     clearInterval(interval)
                     clearTimeout(timeout)
                 }
             } catch (error) {
+                console.log(error);
             }
         }
 
