@@ -1,36 +1,38 @@
-import { fetchLinkedInJobs } from '../utils/linkedinJobs.js';
-import { fetchSerpApiJobs } from '../utils/serpJobs.js';
-import User from '../models/user.model.js';
+import { fetchLinkedInJobs } from '../utils/linkedInJobs.js'
+import { fetchSerpApiJobs } from '../utils/serpJobs.js'
+import User from '../models/user.model.js'
 
 export const searchJobs = async (req, res) => {
     try {
-        const { keyword, location, jobType, remoteFilter, experienceLevel, dateSincePosted } = req.body;
-        const userId = req.cookies.token ? req.user?._id : null;
+        const { keyword, location, jobType, remoteFilter, experienceLevel, dateSincePosted } =
+            req.body
+        const userId = req.cookies.token ? req.user?._id : null
 
         if (!keyword) {
-            return res.status(400).json({ success: false, message: 'Keyword is required' });
+            return res.status(400).json({ success: false, message: 'Keyword is required' })
         }
 
         if (userId) {
-            const user = await User.findById(userId);
+            const user = await User.findById(userId)
 
             if (!user.isPremium) {
-                const now = new Date();
-                const last24h = new Date(now - 24 * 60 * 60 * 1000);
+                const now = new Date()
+                const last24h = new Date(now - 24 * 60 * 60 * 1000)
 
                 if (!user.lastJobSearch || user.lastJobSearch < last24h) {
-                    user.jobSearchCount = 0;
+                    user.jobSearchCount = 0
                 }
                 if (user.jobSearchCount >= 3) {
                     return res.status(429).json({
                         success: false,
-                        message: 'Daily search limit reached. Upgrade to premium for unlimited searches.'
-                    });
+                        message:
+                            'Daily search limit reached. Upgrade to premium for unlimited searches.',
+                    })
                 }
 
-                user.jobSearchCount += 1;
-                user.lastJobSearch = now;
-                await user.save();
+                user.jobSearchCount += 1
+                user.lastJobSearch = now
+                await user.save()
             }
         }
 
@@ -42,27 +44,27 @@ export const searchJobs = async (req, res) => {
             remoteFilter: remoteFilter || '',
             experienceLevel: experienceLevel || '',
             limit: '10',
-            page: '0'
-        };
+            page: '0',
+        }
 
         const serpApiOptions = {
             keyword,
             location,
             jobType,
-            remoteFilter
-        };
+            remoteFilter,
+        }
 
         const [linkedInJobs, serpApiJobs] = await Promise.all([
             fetchLinkedInJobs(linkedInOptions),
-            fetchSerpApiJobs(serpApiOptions)
-        ]);
+            fetchSerpApiJobs(serpApiOptions),
+        ])
 
-        const combinedJobs = [...linkedInJobs, ...serpApiJobs].slice(0, 10);
+        const combinedJobs = [...linkedInJobs, ...serpApiJobs].slice(0, 10)
 
-        let searchesRemaining = null;
+        let searchesRemaining = null
         if (userId) {
-            const currentUser = await User.findById(userId);
-            searchesRemaining = currentUser.isPremium ? 'unlimited' : (3 - currentUser.jobSearchCount);
+            const currentUser = await User.findById(userId)
+            searchesRemaining = currentUser.isPremium ? 'unlimited' : 3 - currentUser.jobSearchCount
         }
 
         res.status(200).json({
@@ -73,13 +75,13 @@ export const searchJobs = async (req, res) => {
                 total: combinedJobs.length,
                 sources: {
                     linkedin: linkedInJobs.length,
-                    google: serpApiJobs.length
+                    google: serpApiJobs.length,
                 },
-                searchesRemaining
-            }
-        });
+                searchesRemaining,
+            },
+        })
     } catch (error) {
-        console.error('Error in searchJobs:', error);
-        res.status(500).json({ success: false, message: 'Failed to fetch jobs' });
+        console.error('Error in searchJobs:', error)
+        res.status(500).json({ success: false, message: 'Failed to fetch jobs' })
     }
-};
+}
