@@ -29,7 +29,10 @@ const Premium = () => {
 
     const handlePayment = async () => {
         if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
-            showToast('Razorpay key not configured. Please add VITE_RAZORPAY_KEY_ID to .env file', 'error')
+            showToast(
+                'Razorpay key not configured. Please add VITE_RAZORPAY_KEY_ID to .env file',
+                'error'
+            )
             return
         }
 
@@ -47,7 +50,7 @@ const Premium = () => {
                 key: import.meta.env.VITE_RAZORPAY_KEY_ID,
                 amount: order.amount,
                 currency: order.currency,
-                name: 'JobWallah Premium',
+                name: 'JobSync Premium',
                 description: 'Lifetime Premium Access',
                 order_id: order.id,
                 handler: async (response) => {
@@ -55,7 +58,7 @@ const Premium = () => {
                         await verifyPayment({
                             razorpay_order_id: response.razorpay_order_id,
                             razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_signature: response.razorpay_signature
+                            razorpay_signature: response.razorpay_signature,
                         })
                         showToast('Payment successful! Welcome to Premium!', 'success')
                         await checkAuth()
@@ -66,11 +69,11 @@ const Premium = () => {
                 },
                 prefill: {
                     name: user?.name,
-                    email: user?.email
+                    email: user?.email,
                 },
                 theme: {
-                    color: '#10B981'
-                }
+                    color: '#10B981',
+                },
             }
 
             const razorpay = new window.Razorpay(options)
@@ -86,9 +89,7 @@ const Premium = () => {
         <div className="min-h-screen bg-[#0a0a0a] text-white py-12">
             <div className="max-w-4xl mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-white mb-4">
-                        Upgrade to Premium
-                    </h1>
+                    <h1 className="text-4xl font-bold text-white mb-4">Upgrade to Premium</h1>
                     <p className="text-xl text-gray-400">
                         Unlock unlimited job searches and premium features
                     </p>

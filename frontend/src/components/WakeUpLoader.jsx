@@ -7,11 +7,11 @@ const WakeUpLoader = ({ onBackendReady }) => {
 
     useEffect(() => {
         const dotInterval = setInterval(() => {
-            setDots(prev => prev.length >= 3 ? '' : prev + '.')
+            setDots((prev) => (prev.length >= 3 ? '' : prev + '.'))
         }, 500)
 
         const timeInterval = setInterval(() => {
-            setTimeElapsed(prev => prev + 1)
+            setTimeElapsed((prev) => prev + 1)
         }, 1000)
 
         return () => {
@@ -39,7 +39,7 @@ const WakeUpLoader = ({ onBackendReady }) => {
         <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
             <div className="text-center space-y-10 px-6 max-w-2xl">
                 <div className="mb-10">
-                    <img src="/assets/logo.png" alt="JobWallah" className="h-24 mx-auto" />
+                    <img src="/assets/logo.png" alt="JobSync" className="h-24 mx-auto" />
                 </div>
 
                 <div className="w-16 h-16 mx-auto mb-8">
@@ -48,11 +48,13 @@ const WakeUpLoader = ({ onBackendReady }) => {
 
                 <div className="space-y-6">
                     <h2 className="text-3xl font-semibold text-gray-100">
-                        {status}{dots}
+                        {status}
+                        {dots}
                     </h2>
 
                     <p className="text-lg text-gray-400 leading-relaxed">
-                        The backend server is starting up. This typically takes 30-60 seconds on initial load.
+                        The backend server is starting up. This typically takes 30-60 seconds on
+                        initial load.
                     </p>
 
                     <div className="text-base text-gray-500 space-y-3 pt-4">
@@ -72,7 +74,8 @@ const WakeUpLoader = ({ onBackendReady }) => {
 
                 <div className="mt-10 p-6 bg-gray-900 border border-gray-800 rounded-lg max-w-lg mx-auto">
                     <p className="text-base text-gray-400 leading-relaxed">
-                        Free tier services sleep after inactivity. The application will respond normally once the server is active.
+                        Free tier services sleep after inactivity. The application will respond
+                        normally once the server is active.
                     </p>
                 </div>
             </div>
