@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(
     cors({
-        origin: 'job-sync-hazel.vercel.app',
+        origin: 'https://job-sync-hazel.vercel.app/',
         credentials: true,
     })
 )
