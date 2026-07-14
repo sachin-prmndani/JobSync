@@ -5,5 +5,8 @@
     "scripts": {
         "format": "prettier . --write",
         "check-format": "prettier . --check"
+    },
+    "dependencies": {
+        "pdfjs-dist": "^6.1.200"
     }
 }
