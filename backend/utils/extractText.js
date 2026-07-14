@@ -1,12 +1,11 @@
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const pdf = require('pdf-parse')
+import pdfParse from 'pdf-parse'
 import mammoth from 'mammoth'
+
 export const extractTextFromFile = async (file) => {
     if (!file) return ''
 
     if (file.mimetype === 'application/pdf') {
-        const data = await pdf(file.buffer)
+        const data = await pdfParse(file.buffer)
         return data.text
     }
 
