@@ -37,6 +37,7 @@ export const extractTextFromPDF = (pdfBuffer) => {
             }
         })
 
-        pdfParser.parseBuffer(pdfBuffer)
+        const uint8Array = new Uint8Array(pdfBuffer)
+        pdfParser.parseBuffer(uint8Array)
     })
 }
